@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  
+}
+.stars {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: #111;
+}
+.floating-heading {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 3em;
+  text-shadow: 0 0 20px #fff, 0 0 40px #1b2735;
+  z-index: 2;
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(-30px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+.comet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, #fff, rgba(255,255,255,0));
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 2px;
+  filter: blur(1px);
+  animation: comet-fly 2s linear forwards;
+}
+
+@keyframes comet-fly {
+  0% {
+    opacity: 0;
+    transform: translate(var(--start-x), var(--start-y)) scaleX(0.5) rotate(var(--angle));
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--end-x), var(--end-y)) scaleX(1.2) rotate(var(--angle));
+  }
+}
+.parallax {
+  background-image: url("img_parallax.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+.big-round-btn {
+  font-size: 2em;
+  padding: 20px 60px;
+  border-radius: 30px;
+  border: none;
+  background: #1b2735;
+  color: #fff;
+  box-shadow: 0 4px 24px #0008;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  animation: float 6s ease-in-out infinite;
+}
+.big-round-btn:hover {
+  background: #273c5a;
+  transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<h1 class="floating-heading">Welcome to Space.</h1>
+
+
+<div>
+  <div class="parallax"></div>
+  <div style="height: 200px; background: rgba(0,0,0,0.3); display: flex; justify-content: flex-start; align-items: center; padding-left: 755px;">
+    <a href="spacestation.html">
+      <button class="big-round-btn">Enter Space Station</button>
+    </a>
+  </div>
+</div>
+
+<script>
+const starCount = 100;
+const stars = document.querySelector('.stars');
+for (let i = 0; i < starCount; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2 + 1;
+  star.style.width = `${size}px`;
+  star.style.height = `${size}px`;
+  star.style.top = `${Math.random() * 100}vh`;
+  star.style.left = `${Math.random() * 100}vw`;
+  star.style.animationDuration = `${1.5 + Math.random()}s`;
+  stars.appendChild(star);
+}
+
+// --- Comet Animation ---
+function createComet() {
+  const comet = document.createElement('div');
+  comet.className = 'comet';
+
+  // Randomize start and end positions and angle
+  const startY = Math.random() * window.innerHeight * 0.7;
+  const startX = -150;
+  const endX = window.innerWidth + 150;
+  const angle = Math.random() * 20 - 10; // -10deg to 10deg
+
+  comet.style.setProperty('--start-x', `${startX}px`);
+  comet.style.setProperty('--start-y', `${startY}px`);
+  comet.style.setProperty('--end-x', `${endX}px`);
+  comet.style.setProperty('--end-y', `${startY + Math.random() * 100 - 50}px`);
+  comet.style.setProperty('--angle', `${angle}deg`);
+
+  document.body.appendChild(comet);
+
+  // Remove comet after animation
+  comet.addEventListener('animationend', () => comet.remove());
+}
+
+// Launch a comet every 2-5 seconds
+setInterval(() => {
+  if (Math.random() < 0.7) createComet();
+}, 2000);
+</script>
+
+</body>
+</html>1

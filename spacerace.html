@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="home_page.css">
+<title>Space Race Quiz</title>
+<style>
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+  }
+  li {
+    float: left;
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background 0.3s;
+  }
+  li a:hover, li a.active {
+    background-color: #00f6ff;
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<ul>
+  <li><a class="active" href="homepage.html">Home Page</a></li>
+  <li><a href="spacerace.html">Space Race</a></li>
+  <li><a href="spacefeminism.html">Space Feminism</a></li>
+  <li><a href="aboutus.html">About Us</a></li>
+</ul>
+<h1> Space race: USA VS USSR</h1>
+<img width ="20%" src="https://www.shutterstock.com/image-photo/united-states-america-usa-vs-260nw-1386058523.jpg">
+<h1>In 1961, President John Kennedy called on the nation to send a man to the Moon. In 1969, the United States did just that. Today, many are familiar with the story of Neil Armstrong’s first few steps on the Moon (cue the “That’s one small step...” quote), but have you ever questioned why we invested so much time, effort, and national attention in getting there? </h1>
+<h2>The Space Race began as an arms race between the respective militaries of the United States and the Soviet Union. World War II had demonstrated to the world that rocket technology would drive modern warfare, and as such the U.S. and Russia locked themselves in a race to have the most superior technology. As technology advanced and powerful intercontinental ballistic missiles (ICBMs) were developed by both countries, the arms race gave way to another race—the Space Race.
+At the start, there were no set rules for the Space Race. What was the goal? What would count as winning? For Americans, President Kennedy's declaration focused the Space Race on a clear goal: landing a man on the Moon before the Soviets. The Space Race became a race to the Moon.
+Both countries made announcements to launch the first artificial satellite into space, but it was the Soviet Union that brought humanity into the Space Age with their Sputnik satellite, which was successfully launched on October 4, 1957. </h2>
+<!-- Space Race Quiz Game -->
+<div id="quiz-game" style="margin-top:30px;">
+  <h2>Space Race Quiz!</h2>
+  <p id="question"></p>
+  <button onclick="answer(true)" id="btn1"></button>
+  <button onclick="answer(false)" id="btn2"></button>
+  <p id="result"></p>
+  <button id="restart" style="display:none;" onclick="restartQuiz()">Restart</button>
+</div>
+
+
+<script>
+const questions = [
+  {
+    q: "Which spacecraft carried the first humans to land on the Moon?",
+    a1: "Apollo 11",
+    a2: "Vostok 1",
+    correct: true
+  },
+  {
+    q: "Who was the first American to orbit the Earth?",
+    a1: "John Glenn",
+    a2: "Buzz Aldrin",
+    correct: true
+  },
+  {
+    q: "Which country launched the first artificial satellite?",
+    a1: "USSR",
+    a2: "USA",
+    correct: true
+  },
+  {
+    q: "What was the name of the first space station?",
+    a1: "Skylab",
+    a2: "Salyut 1",
+    correct: false
+  },
+  {
+    q: "Who was the first woman in space?",
+    a1: "Valentina Tereshkova",
+    a2: "Sally Ride",
+    correct: true
+  }
+];
+
+
+let current = 0;
+let score = 0;
+
+
+function showQuestion() {
+  document.getElementById('question').textContent = questions[current].q;
+  document.getElementById('btn1').textContent = questions[current].a1;
+  document.getElementById('btn2').textContent = questions[current].a2;
+  document.getElementById('result').textContent = "";
+}
+
+
+function answer(isFirst) {
+  if ((isFirst && questions[current].correct) || (!isFirst && !questions[current].correct)) {
+    document.getElementById('result').textContent = "Correct!";
+    score++;
+  } else {
+    document.getElementById('result').textContent = "Try again!";
+    return;
+  }
+  current++;
+  if (current < questions.length) {
+    setTimeout(showQuestion, 1000);
+  } else {
+    document.getElementById('result').textContent = "You finished the quiz! Your score: " + score + "/" + questions.length;
+    document.getElementById('btn1').style.display = "none";
+    document.getElementById('btn2').style.display = "none";
+    document.getElementById('restart').style.display = "inline-block";
+  }
+}
+
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  document.getElementById('btn1').style.display = "inline-block";
+  document.getElementById('btn2').style.display = "inline-block";
+  document.getElementById('restart').style.display = "none";
+  showQuestion();
+}
+
+
+showQuestion();
+</script>
+</body>
+</html>

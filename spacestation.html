@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: url('https://media.istockphoto.com/id/1373098214/photo/spaceship-cabin-8k.jpg?s=612x612&w=0&k=20&c=sphhWJ9PYi9SBjW62-B1q5mWEokZXPeFoS4uK6zi7Mw=') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .floating-heading {
+      color: #fff;
+      text-align: center;
+      margin-top: 60px;
+      font-size: 3em;
+      font-weight: bold;
+      text-shadow:
+        0 0 10px #00f6ff,
+        0 0 20px #00f6ff,
+        0 0 40px #00f6ff,
+        0 4px 24px #000a;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .parallax {
+      background-image: url("img_parallax.jpg");
+      min-height: 500px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .space-stars-section {
+      height: 1000px;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      position: relative;
+      overflow: hidden;
+      font-size: 36px;
+    }
+
+    /* Twinkling stars */
+    .space-stars-section .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+    .space-stars-section .comet {
+      position: absolute;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, #fff, #00f6ff, transparent);
+      opacity: 0.7;
+      border-radius: 50%;
+      animation: comet-fly 3s linear infinite;
+    }
+
+    @keyframes comet-fly {
+      0% {
+        left: -100px;
+        top: calc(10% + 80 * var(--i, 1) * 1px);
+        opacity: 0;
+        transform: scaleX(0.7) rotate(-10deg);
+      }
+      10% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        left: 110%;
+        top: calc(10% + 80 * var(--i, 1) * 1px);
+        opacity: 0;
+        transform: scaleX(1) rotate(-10deg);
+      }
+    }
+    .float-btn {
+      animation: float-btn 4s ease-in-out infinite;
+    }
+    .floating-buttons a:nth-child(2) .float-btn { animation-delay: 1s; }
+    .floating-buttons a:nth-child(3) .float-btn { animation-delay: 2s; }
+    .floating-buttons a:nth-child(4) .float-btn { animation-delay: 3s; }
+
+    @keyframes float-btn {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="floating-heading">Welcome to the Space Station.</h1>
+
+  <h1 style="color: #ffffff; text-align: center; font-weight: bold; margin-top: 30px;">
+    Whats so interesting about space?
+  </h1>
+  <h2 style="color: #00f6ff; text-align: center; font-weight: bold; margin-top: 20px;">
+    Feel free to click one of these links to learn more! Please, scroll down.
+  </h2>
+
+  <div class="parallax"></div>
+
+  <div class="space-stars-section">
+    <div class="floating-buttons" style="position: absolute; top: 180px; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 2;">
+
+      <a href="spacefacts.html"><button class="float-btn" style="padding: 16px 32px; font-size: 1.2em; border-radius: 20px; border: none; background: #00f6ff; color: #1b2735; font-weight: bold; cursor: pointer;">Space Facts</button></a>
+      <a href="spacerace.html"><button class="float-btn" style="padding: 16px 32px; font-size: 1.2em; border-radius: 20px; border: none; background: #00f6ff; color: #1b2735; font-weight: bold; cursor: pointer;">Space Race</button></a>
+      <a href="spacefeminism.html"><button class="float-btn" style="padding: 16px 32px; font-size: 1.2em; border-radius: 20px; border: none; background: #00f6ff; color: #1b2735; font-weight: bold; cursor: pointer;">Space Feminism</button></a>
+      <a href="aboutus.html"><button class="float-btn" style="padding: 16px 32px; font-size: 1.2em; border-radius: 20px; border: none; background: #00f6ff; color: #1b2735; font-weight: bold; cursor: pointer;">About Us</button></a>
+    </div>
+    <!-- You can add your content here -->
+  </div>
+
+  <script>
+    // Generate random stars
+    const section = document.querySelector('.space-stars-section');
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 2) + 's';
+      section.appendChild(star);
+    }
+
+    // Generate random comets
+    for (let i = 0; i < 5; i++) {
+      const comet = document.createElement('div');
+      comet.className = 'comet';
+      comet.style.top = Math.random() * 90 + '%';
+      comet.style.left = '-100px';
+      comet.style.setProperty('--i', i);
+      comet.style.animationDelay = (Math.random() * 3) + 's';
+      comet.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      section.appendChild(comet);
+    }
+  </script>
+</body>
+</html>
